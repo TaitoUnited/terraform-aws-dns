@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+variable "tags" {
+  type = map(string)
+  default = {}
+  description = "A mapping of tags to assign to all resources."
+}
+
 variable "dns_zones" {
   type = list(object({
     dnsName = string

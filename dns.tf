@@ -21,6 +21,8 @@ resource "aws_route53_zone" "dns_zone" {
   force_destroy     = false
   delegation_set_id = each.value.delegationSetId
 
+  tags              = var.tags
+
   dynamic "vpc" {
     for_each = each.value.privateNetworks
     content {
