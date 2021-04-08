@@ -37,7 +37,7 @@ data "aws_route53_zone" "dns_zone" {
   for_each      = {for item in local.dnsZoneRecordSets: item.key => item}
 
   name         = each.value.dnsZone.dnsName
-  private_zone = length(try(each.value.dnsZone.privateNetworks, [])) > 0
+  private_zone = length(coalesce(each.value.dnsZone.privateNetworks, [])) > 0
 }
 
 resource "aws_route53_record" "dns_record_set" {

@@ -24,10 +24,10 @@ variable "dns_zones" {
   type = list(object({
     dnsName = string
     delegationSetId = optional(string)
-    privateNetworks = list(object({
+    privateNetworks = optional(list(object({
       vpc_id = string
       vpc_region = optional(string)
-    }))
+    })))
     recordSets = list(object({
       dnsName = string
       type = string
