@@ -15,7 +15,7 @@
  */
 
 resource "aws_route53_zone" "dns_zone" {
-  for_each          = {for item in local.dnsZones: item.name => item}
+  for_each          = {for item in local.dnsZones: item.dnsName => item}
 
   name              = each.value.dnsName
   force_destroy     = false
@@ -24,7 +24,7 @@ resource "aws_route53_zone" "dns_zone" {
   tags              = var.tags
 
   dynamic "vpc" {
-    for_each = each.value.privateNetworks
+    for_each = each.value.privateNetworks != null ? each.value.privateNetworks : []
     content {
       vpc_id     = each.value.id
       vpc_region = each.value.region
