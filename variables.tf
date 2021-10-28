@@ -28,12 +28,12 @@ variable "dns_zones" {
       vpc_id = string
       vpc_region = optional(string)
     })))
-    recordSets = list(object({
+    recordSets = optional(list(object({
       dnsName = string
       type = string
       ttl = string
       values = list(string)
-    }))
+    })))
   }))
   description = "Resources as JSON (see README.md). You can read values from a YAML file with yamldecode()."
 }
