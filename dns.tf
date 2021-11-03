@@ -15,7 +15,7 @@
  */
 
 resource "aws_route53_zone" "dns_zone" {
-  for_each          = {for item in local.dnsZones: item.dnsName => item}
+  for_each          = {for item in local.dnsZonesToCreate: item.dnsName => item}
 
   name              = each.value.dnsName
   force_destroy     = false
@@ -34,7 +34,7 @@ resource "aws_route53_zone" "dns_zone" {
 
 data "aws_route53_zone" "dns_zone" {
   depends_on   = [aws_route53_zone.dns_zone]
-  for_each      = {for item in local.dnsZoneRecordSets: item.key => item}
+  for_each     = {for item in local.dnsZoneRecordSets: item.key => item}
 
   name         = each.value.dnsZone.dnsName
   private_zone = length(coalesce(each.value.dnsZone.privateNetworks, [])) > 0

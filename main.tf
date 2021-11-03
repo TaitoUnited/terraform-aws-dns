@@ -15,7 +15,16 @@
  */
 
 locals {
-  dnsZones = var.dns_zones != null ? var.dns_zones : []
+  # Set defaults
+  dnsZones = defaults(var.dns_zones != null ? var.dns_zones : [], {
+    create = true
+  })
+
+  dnsZonesToCreate = [
+    for dnsZone in local.dnsZones:
+    dnsZone
+    if dnsZone.create == true
+  ]
 
   dnsZoneRecordSets = flatten([
     for dnsZone in local.dnsZones: [

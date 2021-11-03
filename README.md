@@ -20,6 +20,7 @@ Example YAML:
 ```
 dnsZones:
   - dnsName: mydomain.com
+    create: false
     recordSets:
       - dnsName: www.mydomain.com
         type: A

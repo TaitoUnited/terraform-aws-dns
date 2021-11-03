@@ -23,6 +23,7 @@ variable "tags" {
 variable "dns_zones" {
   type = list(object({
     dnsName = string
+    create = optional(bool)
     delegationSetId = optional(string)
     privateNetworks = optional(list(object({
       vpc_id = string
